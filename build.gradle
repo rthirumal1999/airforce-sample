@@ -33,7 +33,7 @@ test {
     useJUnitPlatform()
 }
 
-String imageName = "rthirumal/airforce-sample:$version"
+String imageName = "rthirumal1999/airforce-sample:$version"
 
 docker {
     name imageName
