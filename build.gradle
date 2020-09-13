@@ -59,7 +59,7 @@ cloudFormation {
     stackName "airforce-sample-stack"
     stackParams([
             SubnetID: findProperty('subnetId') ?: 'subnet-378eaa09',
-            ServiceName: 'airforce-sample'
+            ServiceName: 'airforce-sample',
             ServiceVersion: project.version,
             DockerHubUsername: dockerHubUsernameProperty
     ])
