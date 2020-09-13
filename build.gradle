@@ -33,6 +33,7 @@ test {
     useJUnitPlatform()
 }
 
+String dockerHubUsernameProperty = findProperty('dockerHubUsername') ?: 'rthirumal1999'
 String imageName = "rthirumal1999/airforce-sample:$version"
 
 docker {
@@ -46,5 +47,22 @@ dockerRun {
     image imageName
     ports '8080:8080'
     clean true
+}
+
+import com.amazonaws.services.cloudformation.model.Capability
+
+aws {
+    region = findProperty('region') ?: 'us-east-1'
+}
+
+cloudFormation {
+    stackName "$project.name-stack"
+    stackParams([
+            SubnetID: findProperty('subnetId') ?: 'subnet-378eaa09',
+            ServiceName: project.name,
+            ServiceVersion: project.version,
+            DockerHubUsername: dockerHubUsernameProperty
+    ])
+    templateFile project.file("ecs.yml")
 }
 
